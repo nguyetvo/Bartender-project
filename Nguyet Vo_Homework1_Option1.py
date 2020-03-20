@@ -1,7 +1,4 @@
-Python 3.7.6 (v3.7.6:43364a7ae0, Dec 18 2019, 14:18:50) 
-[Clang 6.0 (clang-600.0.57)] on darwin
-Type "help", "copyright", "credits" or "license()" for more information.
->>> import random
+import random
 
 questions = {
     "strong": "Do ye like yer drinks strong?",
@@ -47,6 +44,6 @@ if __name__ == '__main__':
   drink = mix(userChoices)
   drinkname = random.choice(adjectives) + " " + random.choice(nouns)
   print ("")
-  print ("Heres ye drink, The " + drinkname)
+  print ("Here your drink, The " + drinkname)
   for ingredient in drink:
     print ("a " + ingredient)
