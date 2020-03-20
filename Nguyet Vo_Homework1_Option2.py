@@ -1,0 +1,118 @@
+Python 3.7.6 (v3.7.6:43364a7ae0, Dec 18 2019, 14:18:50) 
+[Clang 6.0 (clang-600.0.57)] on darwin
+Type "help", "copyright", "credits" or "license()" for more information.
+>>>
+import random
+
+questions = {
+    'strong': 'Do ye like yer drinks strong?',
+    'salty': 'Do ye like it with a satly tang?',
+    'bitter': 'Are ye a lubber who likes it bitter?',
+    'sweet': 'Would ye like a bit of sweetness with yer poison?',
+    'fruity': 'Are ye one for a fruity finish?'
+}
+
+ingredients = {
+    'strong': ['glug of rum', 'slug of whisky', 'splash of gin'],
+    'salty': ['olive on a stick', 'salt-dusted rim', 'rasher of bacon'],
+    'bitter': ['shake of bitters', 'splash of tonic', 'twist of lemon peel'],
+    'sweet': ['sugar cube', 'spoonful of honey', 'splash of cola'],
+    'fruity': ['slice of orange', 'dash of cassis', 'cherry on top']
+}
+
+
+stock = {}
+
+def stock_all():
+    for taste in ingredients.values():
+        for ingred in taste:
+            stock[ingred] = 10
+
+def preferences():
+    answers = {}
+    for question in questions:
+        answer = input(questions[question])
+        if answer == 'y' or answer == 'yes':
+            answers[question] = True
+        else:
+            answers[question] = False
+    return answers
+
+def name():
+    adjectives = ['Salty', 'Fluffy', 'Sappy', 'Crispy', 'Groggy']
+    nouns = ['Seahorse', 'Log', 'Giraffe']
+    drinkname = str(random.choice(adjectives)) + ' ' + str(random.choice(nouns))
+    return drinkname
+
+def drink(tastes): # tastes should be a dictionary of preferences
+    contents = []
+    for taste in tastes:
+        if tastes[taste] == True:
+            ingredient = random.choice(ingredients[taste])
+            if not stock[ingredient] == 0:
+                contents.append(ingredient)
+                stock[ingredient] -= 1
+            if stock[ingredient] < 3:
+                restock = input(ingredient, 'low! Do you want to restock?')
+                if restock == 'y' or restock == 'yes':
+                    stock[ingredient] = 10
+    return contents
+
+if __name__ == '__main__':
+    stock_all()
+    customers = {}
+    customer = input('What is your name?')
+    while True:
+        if customer == 'quit':
+            break
+        elif customer in customers:
+            answers = customers[customer]
+        else:
+            customers[customer] = preferences() 
+        answers = customers[customer]
+        while True:
+            print ('Ah, the', name())
+            print (drink(answers))
+            cont = input('Would you like another drink?')
+            if not (cont == 'y' or cont == 'yes'):
+                break
+    customer = input('Next customer! What is your name? Type \"quit\" to exit.')
+
+questions = {
+  'strong': 'Do ye like yer drinks strong?',
+  'salty': 'Do ye like it with a satly tang?',
+  'bitter': 'Are ye a lubber who likes it bitter?',
+  'sweet': 'Would ye like a bit of sweetness with yer poison?',
+  'fruity': 'Are ye one for a fruity finish?'
+}
+
+ingredients = {
+  'strong': ['glug of rum', 'slug of whisky', 'splash of gin'],
+  'salty': ['olive on a stick', 'salt-dusted rim', 'rasher of bacon'],
+  'bitter': ['shake of bitters', 'splash of tonic', 'twist of lemon peel'],
+  'sweet': ['sugar cube', 'spoonful of honey', 'splash of cola'],
+  'fruity': ['slice of orange', 'dash of cassis', 'cherry on top']
+}
+
+answers = {}
+
+def preferences():
+  for question in questions:
+    answer = input(questions[question])
+    if answer == 'y' or answer == 'yes':
+      answers[question] = True
+    else:
+      answers[question] = False
+  return answers
+
+def drink(dictionary):
+  contents = []
+  for i in dictionary:
+    if dictionary[i] == True:
+      ingredient = random.choice(ingredients[i])
+      contents.append(ingredient)
+  return contents
+
+if __name__ == '__main__':
+  preferences()
+  print (drink(answers))
